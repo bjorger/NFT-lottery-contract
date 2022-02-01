@@ -57,6 +57,20 @@
 			},
 			{
 				"inputs": [],
+				"name": "disableWhitelistMode",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "enableWhitelistMode",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "enter",
 				"outputs": [],
 				"stateMutability": "payable",
@@ -109,12 +123,12 @@
 			},
 			{
 				"inputs": [],
-				"name": "getWhitelist",
+				"name": "lotteryPot",
 				"outputs": [
 					{
-						"internalType": "address[]",
+						"internalType": "uint256",
 						"name": "",
-						"type": "address[]"
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -122,12 +136,12 @@
 			},
 			{
 				"inputs": [],
-				"name": "lotteryPot",
+				"name": "lotteryState",
 				"outputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "enum LotteryState",
 						"name": "",
-						"type": "uint256"
+						"type": "uint8"
 					}
 				],
 				"stateMutability": "view",
@@ -160,6 +174,19 @@
 					}
 				],
 				"name": "rawFulfillRandomness",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "addressToRemove",
+						"type": "address"
+					}
+				],
+				"name": "removeFromWhitelist",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -254,11 +281,11 @@
 			]
 		},
 		"contracts/Lottery.sol": {
-			"keccak256": "0x082de0899ee0afcd7b816baa33eebd674d2acf31986091fa75bf507c639c1d69",
+			"keccak256": "0x464d433f431404a6f8fe3cfdec1abcdfbc41907b494f6056c3405832e3981e9a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://96b846a40ef00cce68471689aedfbf7a2d8199eea1f41594fcc9d24ec471d24b",
-				"dweb:/ipfs/QmRNEMA7rfsj1rRbAK8djcCyF2SNRhVTHTERkJE8NEt9D8"
+				"bzz-raw://fb115ea1382f1937fd7699dea916e2082bbd9fbdc392ad1e49f23d310db95a3b",
+				"dweb:/ipfs/Qmf6EznHULm28AgiNPAyHw3Hhr9jeVFcp24z6z5RJreY8y"
 			]
 		},
 		"https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol": {

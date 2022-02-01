@@ -4,38 +4,38 @@ pragma solidity ^0.8.7;
 import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol";
 
-contract Lottery is VRFConsumerBase, Ownable {
-    bytes32 internal keyHash;
-    uint256 internal fee;
-    
-    uint256 public categoryBracket; 
+enum NFTCategory {
+    RARITY_1,
+    RARITY_2,
+    RARITY_3,
+    RARITY_4,
+    RARITY_5
+}
 
+enum LotteryState {
+    OPEN,
+    DRAWING,
+    CLOSED
+}
+
+enum WhitelistPhase { 
+    IS_IN_WHITELIST_PHASE,
+    IS_IN_NORMAL_PHASE
+}
+
+contract Lottery is VRFConsumerBase, Ownable {
     mapping(address => uint) public entrants;
-    mapping(uint => address) whitelist;
-    uint256 whitelistCount;
+    mapping(address => bool) whitelist;
     uint256 public entrantCount;
     uint256 public lotteryPot;
     uint256 MIN_ENTRY_VALUE;
     uint256 MAX_ENTRY_VALUE;
+    uint256 internal fee;
+    uint256 public categoryBracket; 
+    LotteryState public lotteryState = LotteryState.OPEN;
+    bool internal isInWhitelistStage = true;
+    bytes32 internal keyHash;
 
-    enum NFTCategory {
-        RARITY_1,
-        RARITY_2,
-        RARITY_3,
-        RARITY_4,
-        RARITY_5
-    }
-
-    enum LotteryState {
-        OPEN,
-        DRAWING,
-        CLOSED
-    }
-
-    enum WhitelistPhase { 
-        IS_IN_WHITELIST_PHASE,
-        IS_IN_NORMAL_PHASE
-    }
 
     /**
      * Constructor inherits VRFConsumerBase
@@ -89,6 +89,9 @@ contract Lottery is VRFConsumerBase, Ownable {
     // function withdrawLink() external {} - Implement a withdraw function to avoid locking your LINK in the contract
 
     function enter() public payable {
+        if(isInWhitelistStage == true){
+            require(whitelist[msg.sender] == true, "Sender not whitelisted");
+        }
         require(msg.value >= MIN_ENTRY_VALUE, "Funds not sufficient");
         require(msg.value < MAX_ENTRY_VALUE, "Funds exceed maximum entry amount for a single wallet");
         entrantCount += 1;
@@ -97,17 +100,18 @@ contract Lottery is VRFConsumerBase, Ownable {
     }
 
     function addToWhitelist(address addressToWhiteList) public onlyOwner {
-        whitelist[whitelistCount] = addressToWhiteList;
-        whitelistCount += 1; 
+        whitelist[addressToWhiteList] = true;
     }
 
-    function getWhitelist() public view returns (address[] memory){
-        address[] memory _whitelist;
+    function removeFromWhitelist(address addressToRemove) public onlyOwner {
+        delete(whitelist[addressToRemove]);
+    }
 
-        for(uint i = 0; i < whitelistCount; i++){
-            _whitelist[i] = whitelist[i];
-        }
+    function enableWhitelistMode() public onlyOwner{
+        isInWhitelistStage = true;
+    }
 
-        return _whitelist;
+    function disableWhitelistMode() public onlyOwner{
+        isInWhitelistStage = false;
     }
 }
