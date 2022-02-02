@@ -251,33 +251,25 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"name": "entrants",
-				"outputs": [
-					{
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
 					}
 				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getRandomNumber",
+				"name": "entrants",
 				"outputs": [
 					{
-						"internalType": "bytes32",
-						"name": "requestId",
-						"type": "bytes32"
+						"internalType": "address",
+						"name": "entrant_address",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "NFT_rarity",
+						"type": "uint256"
 					}
 				],
-				"stateMutability": "nonpayable",
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -328,6 +320,13 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "mintEntrantNFT",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -559,11 +558,11 @@
 		"userdoc": {
 			"kind": "user",
 			"methods": {
+				"addToWhitelist(address)": {
+					"notice": "Whitelist "
+				},
 				"constructor": {
 					"notice": "Constructor inherits VRFConsumerBase  Network: Polygon Chainlink VRF Coordinator address: 0x8C7382F9D8f56b33781fE506E897a4F1e2d17255 LINK token address:                0x326C977E6efc84E512bB9C30f76E30c160eD06FB Key Hash:                          0x6e75b569a01ef56d18cab6a8e71e6600d6ce853834d4a5748b720d06f878b3a4"
-				},
-				"getRandomNumber()": {
-					"notice": "Requests randomness "
 				}
 			},
 			"version": 1
@@ -682,11 +681,11 @@
 			]
 		},
 		"contracts/Lottery.sol": {
-			"keccak256": "0xf30097ce5b612e320ddbd48b5cebd96a74bdfe0da44bf34b1b2b875c82e0581b",
+			"keccak256": "0xed8fa8a126f3e5eed46b6da7be53dc6ecff7a0e6fa54e8ecbe044dbda97bcd6f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://262ea66fff3fcdffb833c77ba1f381552e5b039999902825cf03a70a71eb4299",
-				"dweb:/ipfs/QmUMCAjrPURgnYrEDNz8FhDqjxMCGVang9tj3JsDwKc2tT"
+				"bzz-raw://da941392fbe04dbff534ee422cd70eda77f1cdfecd75dac54376fc2791470979",
+				"dweb:/ipfs/QmZzgbsDDK5SxDBzvhtB1r9DcLHXe9r7asZrAFyQKdY1Nm"
 			]
 		}
 	},

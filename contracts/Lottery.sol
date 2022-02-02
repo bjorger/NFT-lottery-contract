@@ -12,8 +12,13 @@ enum LotteryState {
     CLOSED
 }
 
+struct Entrant {
+    address entrant_address;
+    uint NFT_rarity;
+}
+
 contract Lottery is VRFConsumerBase, Ownable, ERC1155 {
-    mapping(address => uint) public entrants;
+    mapping(uint => Entrant) public entrants;
     mapping(address => bool) whitelist;
     uint256 public entrantCount;
     uint256 public lotteryPot;
@@ -50,14 +55,10 @@ contract Lottery is VRFConsumerBase, Ownable, ERC1155 {
         keyHash = 0x6e75b569a01ef56d18cab6a8e71e6600d6ce853834d4a5748b720d06f878b3a4;
         fee = 0.1 * 10 ** 18; // 0.1 LINK (Varies by network)
     }
-    
-    /** 
-     * Requests randomness 
+
+    /**
+     * Lottery Entry
      */
-    function getRandomNumber() public returns (bytes32 requestId) {
-        require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK - fill contract with faucet");
-        return requestRandomness(keyHash, fee);
-    }
 
     /**
      * Callback function used by VRF Coordinator
@@ -87,19 +88,34 @@ contract Lottery is VRFConsumerBase, Ownable, ERC1155 {
         }
     }
 
-    // function withdrawLink() external {} - Implement a withdraw function to avoid locking your LINK in the contract
-
     function enter() public payable {
         if(lotteryState == LotteryState.WHITELIST_ONLY){
             require(whitelist[msg.sender] == true, "Sender not whitelisted");
         }
         require(msg.value >= MIN_ENTRY_VALUE, "Funds not sufficient");
         require(msg.value < MAX_ENTRY_VALUE, "Funds exceed maximum entry amount for a single wallet");
-        entrantCount += 1;
-        entrants[msg.sender] = msg.value;
-        lotteryPot += msg.value;
+        mintEntrantNFT();
     }
 
+    function mintEntrantNFT() public {
+        requestRandomness(keyHash, fee);
+    }
+
+    function mintTicket(uint rarity) private {
+        require(balanceOf(msg.sender, RARITY_1) == 0,"you already have a ticket");
+        require(balanceOf(msg.sender, RARITY_2) == 0,"you already have a ticket");
+        require(balanceOf(msg.sender, RARITY_3) == 0,"you already have a ticket");
+        require(balanceOf(msg.sender, RARITY_4) == 0,"you already have a ticket");
+        require(balanceOf(msg.sender, RARITY_5) == 0,"you already have a ticket");
+
+        _mint(msg.sender, rarity, 1, "0x000");
+        entrants[entrantCount] = Entrant(msg.sender, rarity);
+        entrantCount += 1;
+    }
+
+    /**
+     * Whitelist 
+     */
     function addToWhitelist(address addressToWhiteList) public onlyOwner {
         whitelist[addressToWhiteList] = true;
     }
@@ -112,15 +128,4 @@ contract Lottery is VRFConsumerBase, Ownable, ERC1155 {
         lotteryState = LotteryState.WHITELIST_ONLY;
     }
 
-    function mintTicket(uint rarity) private {
-        require(balanceOf(msg.sender, RARITY_1) == 0,"you already have a ticket");
-        require(balanceOf(msg.sender, RARITY_2) == 0,"you already have a ticket");
-        require(balanceOf(msg.sender, RARITY_3) == 0,"you already have a ticket");
-        require(balanceOf(msg.sender, RARITY_4) == 0,"you already have a ticket");
-        require(balanceOf(msg.sender, RARITY_5) == 0,"you already have a ticket");
-
-        _mint(msg.sender, rarity, 1, "0x000");
-    }
-    // function Start lottery
-    // function End lottery
 }
