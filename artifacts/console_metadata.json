@@ -18,7 +18,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Lottery_flat.sol": "VRFRequestIDBase"
+			"Lottery_flat.sol": "console"
 		},
 		"evmVersion": "london",
 		"libraries": {},

@@ -40,27 +40,14 @@
 				"inputs": [
 					{
 						"indexed": false,
-						"internalType": "uint256",
-						"name": "bracket",
-						"type": "uint256"
-					}
-				],
-				"name": "CategoryBracket",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
 						"internalType": "address",
-						"name": "player",
+						"name": "",
 						"type": "address"
 					},
 					{
 						"indexed": false,
 						"internalType": "uint256",
-						"name": "rarity",
+						"name": "",
 						"type": "uint256"
 					}
 				],
@@ -92,7 +79,7 @@
 					{
 						"indexed": false,
 						"internalType": "bytes32",
-						"name": "id",
+						"name": "",
 						"type": "bytes32"
 					}
 				],
@@ -254,19 +241,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "categoryBracket",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -277,6 +251,19 @@
 				"name": "drawWinner",
 				"outputs": [],
 				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "drawingState",
+				"outputs": [
+					{
+						"internalType": "enum DrawingState",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -296,6 +283,32 @@
 			{
 				"inputs": [],
 				"name": "entrantCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getContractBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getWETHBalance",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -678,6 +691,14 @@
 				"dweb:/ipfs/QmNoSE6knNfFncdDDLTb3fGR6oSQty1srG96Vsx3E9wQdw"
 			]
 		},
+		"@openzeppelin/contracts@4.4.2/token/ERC20/IERC20.sol": {
+			"keccak256": "0x61437cb513a887a1bbad006e7b1c8b414478427d33de47c5600af3c748f108da",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2c3d0973630ed74f2b5ce3944677a885dc70ec32fc83b35f55045a10224da32b",
+				"dweb:/ipfs/QmbefZ5RoEZKNHXCALfh683PnaNYzKPcKMFjyY1DVAgq8A"
+			]
+		},
 		"@openzeppelin/contracts@4.4.2/utils/Address.sol": {
 			"keccak256": "0x51b758a8815ecc9596c66c37d56b1d33883a444631a3f916b9fe65cb863ef7c4",
 			"license": "MIT",
@@ -711,11 +732,11 @@
 			]
 		},
 		"contracts/Lottery.sol": {
-			"keccak256": "0x4e23356bac6226f377d9f3078db1f9f7b2bb32f8050c82f382950e1b2ba2b99f",
+			"keccak256": "0x97cc7fcf8175548c0e638844c5ba10b906be17bc546e1787e4c84409dea4ed55",
 			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://d1b4d2d025d6cb2a97ed21761aabd092e7459419e49a66ea7a4de16d379de919",
-				"dweb:/ipfs/QmXam9fuKMVLpw1CXLmCpF5YE4Q8CoiA41sYNmn9D6wXjP"
+				"bzz-raw://0e1023b1b76721546d6708678b48808f65fec9eeaeb75f789ec9c03ae73c7a37",
+				"dweb:/ipfs/QmVGK8RRUzttk1Z9GsA5jsy2zQGERY9Nc8bgGeMRYC8Nhg"
 			]
 		}
 	},

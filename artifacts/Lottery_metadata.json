@@ -40,8 +40,21 @@
 				"inputs": [
 					{
 						"indexed": false,
+						"internalType": "uint256",
+						"name": "bracket",
+						"type": "uint256"
+					}
+				],
+				"name": "CategoryBracket",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
 						"internalType": "address",
-						"name": "receiver",
+						"name": "player",
 						"type": "address"
 					},
 					{
@@ -51,7 +64,7 @@
 						"type": "uint256"
 					}
 				],
-				"name": "NFTMinted",
+				"name": "MintTicket",
 				"type": "event"
 			},
 			{
@@ -71,6 +84,19 @@
 					}
 				],
 				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "bytes32",
+						"name": "id",
+						"type": "bytes32"
+					}
+				],
+				"name": "RequestedRandomness",
 				"type": "event"
 			},
 			{
@@ -229,6 +255,13 @@
 			},
 			{
 				"inputs": [],
+				"name": "buyWithWETH",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "categoryBracket",
 				"outputs": [
 					{
@@ -283,30 +316,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "entrants",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "entrantAddress",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "NFTRarity",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "address",
 						"name": "account",
 						"type": "address"
@@ -352,19 +361,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "rarity",
-						"type": "uint256"
-					}
-				],
-				"name": "mintTicket",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -619,17 +615,17 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"Lottery_flat.sol": {
-			"keccak256": "0x04a6c2d1ff47f66953b7b51e19bcbb25b527dfaad656ab14233afb4593da2f20",
+			"keccak256": "0x669266647410f9efa7e0e821c1b6181125f6b3cfbc0057ab0f8bbbd31213feb9",
 			"urls": [
-				"bzz-raw://7aff334867abcc63cb795dfa7549eb1a45d552e81de60f04db287790bf275f1f",
-				"dweb:/ipfs/QmQSGge7cgo2QYxt4RHf5fu4n1PPyB4Ss5NMuwLtR84h67"
+				"bzz-raw://849aac1045a953fd375f0914173caf274c992d1334d08d5be5969198bb0ae14f",
+				"dweb:/ipfs/QmNm3yBi41KYDDjLADsqhCv87s5desbNRrAD3iCXUJNFru"
 			]
 		}
 	},

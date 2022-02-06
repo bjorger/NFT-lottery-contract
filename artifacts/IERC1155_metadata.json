@@ -357,17 +357,17 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"Lottery_flat.sol": {
-			"keccak256": "0x04a6c2d1ff47f66953b7b51e19bcbb25b527dfaad656ab14233afb4593da2f20",
+			"keccak256": "0x669266647410f9efa7e0e821c1b6181125f6b3cfbc0057ab0f8bbbd31213feb9",
 			"urls": [
-				"bzz-raw://7aff334867abcc63cb795dfa7549eb1a45d552e81de60f04db287790bf275f1f",
-				"dweb:/ipfs/QmQSGge7cgo2QYxt4RHf5fu4n1PPyB4Ss5NMuwLtR84h67"
+				"bzz-raw://849aac1045a953fd375f0914173caf274c992d1334d08d5be5969198bb0ae14f",
+				"dweb:/ipfs/QmNm3yBi41KYDDjLADsqhCv87s5desbNRrAD3iCXUJNFru"
 			]
 		}
 	},
