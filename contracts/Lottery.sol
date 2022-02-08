@@ -6,6 +6,8 @@ import "@openzeppelin/contracts@4.4.2/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts@4.4.2/access/Ownable.sol";
 import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
 
+import "hardhat/console.sol";
+
 enum LotteryState {
     WHITELIST_ONLY,
     OPEN,
@@ -25,8 +27,8 @@ enum DrawingState {
 }
 
 struct Entrant {
-    address entrantAddress;
-    uint256 NFTRarity;
+    address addr;
+    uint256 ticketPrice;
 }
 
 contract Lottery is VRFConsumerBase, Ownable, ERC1155 {
@@ -36,28 +38,32 @@ contract Lottery is VRFConsumerBase, Ownable, ERC1155 {
     mapping(bytes32 => address) private entrants_queue;
     mapping(address => EntrantState) private entrants;
     mapping(address => bool) private whitelist;
+    mapping(uint => mapping(uint => Entrant)) private brackets;
+    mapping(uint => uint) private bracketCount;
     IERC20 private _token;
     uint256 public entrantCount;
-    uint256 public lotteryPot;
-    uint256 MIN_ENTRY_VALUE = 1;
-    uint256 MAX_ENTRY_VALUE = 100000;
     bytes32 private keyHash;
     uint256 private fee;
     uint256 private ticketPrice = 0.01 * 10 ** 18;
+    uint256 private winnerBracket;
+    uint256 private lotteryPot;
+    mapping(uint => uint) private priceMoney;
+    uint256 private winnerCount;
 
     LotteryState public lotteryState = LotteryState.OPEN;
     DrawingState public drawingState = DrawingState.DRAW_BRACKET;
 
     // NFT Rarities
-    uint256 constant RARITY_1 = 0;
-    uint256 constant RARITY_2 = 1;
-    uint256 constant RARITY_3 = 2;
-    uint256 constant RARITY_4 = 3;
-    uint256 constant RARITY_5 = 4;
+    uint256 constant RARITY_1 = 1;
+    uint256 constant RARITY_2 = 2;
+    uint256 constant RARITY_3 = 3;
+    uint256 constant RARITY_4 = 4;
+    uint256 constant RARITY_5 = 5;
     address constant WETH_CONTRACT_ADDRESS = 0x3C68CE8504087f89c640D02d133646d98e64ddd9;
 
     event RequestedRandomness(bytes32);
     event MintTicket(address, uint256);
+    event PayWinner(address, uint256);
 
 
     /**
@@ -88,10 +94,20 @@ contract Lottery is VRFConsumerBase, Ownable, ERC1155 {
         return _token.balanceOf(address(this));
     }
 
+    function getLotteryPot() public view returns (uint256){
+        return lotteryPot;
+    }
+
+    function getTicketPrice() public view returns (uint256){
+        return ticketPrice;
+    }
+
     /**
      * Lottery Entry
      */
     function enter() public payable {
+        require(lotteryState == LotteryState.OPEN || lotteryState == LotteryState.WHITELIST_ONLY, "Lottery is not open");
+        require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK - Cannot start VRF");
         if(entrants[msg.sender] == EntrantState.HAS_TICKET){
             revert("Address already has a ticket");
         }
@@ -125,12 +141,31 @@ contract Lottery is VRFConsumerBase, Ownable, ERC1155 {
             if(drawingState == DrawingState.DRAW_BRACKET){
                 drawingState = DrawingState.DRAW_WINNER;
                 uint256 categoryBracket = (randomness % 100) + 1;
-
                 // Draw Bracket
-                drawBracket(categoryBracket);
+                winnerBracket = drawBracket(categoryBracket);
+                drawingState = DrawingState.DRAW_WINNER;
+                requestRandomness(keyHash, fee);
             }
-            else if(drawingState == DrawingState.DRAW_WINNER){
+            else if(drawingState == DrawingState.DRAW_WINNER && winnerBracket != 0 && bracketCount[winnerBracket] != 0){
                 // Draw winner in bracket
+                // winner
+                Entrant memory winner = brackets[winnerBracket][randomness % bracketCount[winnerBracket]];
+                // remove winner from lottery so he can't win again
+                delete brackets[winnerBracket][randomness % bracketCount[winnerBracket]];
+                payWinner(winner.addr, priceMoney[winnerCount]);
+                drawingState = DrawingState.DRAW_BRACKET;
+                winnerCount += 1;
+
+                if(winnerCount < 3){
+                    requestRandomness(keyHash, fee);
+                }
+                else{
+                    lotteryState = LotteryState.CLOSED;
+                }
+            }
+            // start new drawing to find new bracket
+            else {
+                requestRandomness(keyHash, fee);
             }
         }
     }
@@ -158,34 +193,109 @@ contract Lottery is VRFConsumerBase, Ownable, ERC1155 {
         }
     }
 
-    function drawBracket(uint256 categoryBracket) private {
+    function drawBracket(uint256 categoryBracket) private pure returns (uint256 _rarity) {
         if (categoryBracket > 0 && categoryBracket <= 40){
-            // Rarity 1
+            return RARITY_1;
         }
         else if (categoryBracket > 40 && categoryBracket <= 65){
-            // Rarity 2
+            return RARITY_2;
         }
         else if (categoryBracket > 65 && categoryBracket <= 85){
-            // Rarity 3
+            return RARITY_3;
         }
         else if (categoryBracket > 85 && categoryBracket <= 95){
-            // Rarity 4
+            return RARITY_4;
         }
         else if (categoryBracket > 95 && categoryBracket <= 100){
-            // Rarity 5
+            return RARITY_5;
+        }
+        else{
+            // return non existing rarity;
+            return 0;
         }
     }
 
     function mintTicket(uint256 rarity, bytes32 requestId) private {
-        _mint(entrants_queue[requestId], rarity, 1, "");
-        entrants[entrants_queue[requestId]] = EntrantState.HAS_TICKET;
+        address player = entrants_queue[requestId];
+        _mint(player, rarity, 1, "");
+        entrants[player] = EntrantState.HAS_TICKET;
+        brackets[rarity][bracketCount[rarity]] = Entrant(player, ticketPrice);
+        bracketCount[rarity] += 1;
         entrantCount += 1;
-        emit MintTicket(entrants_queue[requestId], rarity);
+
+        if(entrantCount == 1001){
+            ticketPrice = 0.02 * 10 ** 18;
+        }
+        else if(entrantCount == 2001){
+            ticketPrice = 0.03 * 10 ** 18;
+        }
+        else if(entrantCount == 3001){
+            ticketPrice = 0.04 * 10 ** 18;
+        }
+        else if(entrantCount == 5001){
+            ticketPrice = 0.05 * 10 ** 18;
+        }
+        else if(entrantCount == 10001){
+            ticketPrice = 0.06 * 10 ** 18;
+        }
+        else if(entrantCount == 20001){
+            ticketPrice = 0.07 * 10 ** 18;
+        }
+        else {
+            ticketPrice = 0.08 * 10 ** 18;
+        }
+
+        lotteryPot = (getWETHBalance() * 8) / 10;
+        emit MintTicket(player, rarity);
         delete entrants_queue[requestId];
     }
 
-    function drawWinner(uint256 rarity) public onlyOwner payable {
-        require(balanceOf(msg.sender, rarity) == 1, "Address does not own valid ticket");
+    function payWinner(address winner, uint256 amount) private {
+        require(
+            balanceOf(winner, RARITY_1) == 1 || 
+            balanceOf(winner, RARITY_2) == 1 ||
+            balanceOf(winner, RARITY_3) == 1 ||
+            balanceOf(winner, RARITY_4) == 1 ||
+            balanceOf(winner, RARITY_5) == 1, "Address does not own valid ticket");
+        _token.transferFrom(address(this), winner, amount);
+        emit PayWinner(winner, amount);
+    }
+
+    function startDrawing() public onlyOwner {
+        // Times 6, because the oracle will be called 6 times to find the 3 winners
+        // call of requestRandomness in startDrawing() to get Winner Bracket of First Winner => Fee Number one
+        // call of requestRandomness in fulfillRandomness to get first Winner => Fee Number two
+        // call of requestRandomness in fulfillRandomness to get Winner Bracket of Second Winner => Fee Number three
+        // call of requestRandomness in fulfillRandomness to get second Winner => Fee Number four
+        // call of requestRandomness in fulfillRandomness to get Winner Bracket of Third Winner => Fee Number five
+        // call of requestRandomness in fulfillRandomness to get Third Winner => Fee Number six
+        require(LINK.balanceOf(address(this)) >= fee * 6, "Not enough LINK - Cannot start VRF");
+        lotteryState = LotteryState.DRAWING;
+        
+        priceMoney[0] = lotteryPot * 7 / 10;
+        priceMoney[1] = lotteryPot * 2 / 10;
+        priceMoney[2] = lotteryPot * 1 / 10;
+
+        if (entrantCount >= 1000){
+            requestRandomness(keyHash, fee);
+        }
+        else {
+            paybackPlayers();
+        }
+    }
+
+/*
+
+    mapping(uint => mapping(uint => Entrant)) private brackets;
+    mapping(uint => uint) private bracketCount;
+*/
+    function paybackPlayers() private onlyOwner{
+        // Brackets 1 2 3 4 5
+        for(uint i = 1; i < 5; i++){
+            for(uint j = 0; j < bracketCount[i]; j++){
+                _token.transferFrom(address(this), brackets[i][j].addr, brackets[i][j].ticketPrice);
+            }
+        }
     }
 
     /**

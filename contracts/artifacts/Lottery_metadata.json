@@ -78,6 +78,25 @@
 				"inputs": [
 					{
 						"indexed": false,
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "PayWinner",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
 						"internalType": "bytes32",
 						"name": "",
 						"type": "bytes32"
@@ -241,19 +260,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "rarity",
-						"type": "uint256"
-					}
-				],
-				"name": "drawWinner",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
 				"inputs": [],
 				"name": "drawingState",
 				"outputs": [
@@ -308,6 +314,32 @@
 			},
 			{
 				"inputs": [],
+				"name": "getLotteryPot",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getTicketPrice",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "getWETHBalance",
 				"outputs": [
 					{
@@ -338,19 +370,6 @@
 						"internalType": "bool",
 						"name": "",
 						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "lotteryPot",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -500,6 +519,13 @@
 					}
 				],
 				"name": "setApprovalForAll",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "startDrawing",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -732,11 +758,19 @@
 			]
 		},
 		"contracts/Lottery.sol": {
-			"keccak256": "0x97cc7fcf8175548c0e638844c5ba10b906be17bc546e1787e4c84409dea4ed55",
+			"keccak256": "0x85863f062637040ef4941ccc11d3dd9e26a3931aecd1a0bb987aa2e7099a3705",
 			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://0e1023b1b76721546d6708678b48808f65fec9eeaeb75f789ec9c03ae73c7a37",
-				"dweb:/ipfs/QmVGK8RRUzttk1Z9GsA5jsy2zQGERY9Nc8bgGeMRYC8Nhg"
+				"bzz-raw://ddf7b9c3d100b73ea7c843dc781b84f5d01c82d8f3a7a18724c22e5aa30b5102",
+				"dweb:/ipfs/QmSYhiXbdGWYrSTa4zToZCKsL2yVicEUUCPLha6hXZ3HZy"
+			]
+		},
+		"hardhat/console.sol": {
+			"keccak256": "0x72b6a1d297cd3b033d7c2e4a7e7864934bb767db6453623f1c3082c6534547f4",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a8cb8681076e765c214e0d51cac989325f6b98e315eaae06ee0cbd5a9f084763",
+				"dweb:/ipfs/QmNWGHi4zmjxQTYN3NMGnJd49jBT5dE4bxTdWEaDuJrC6N"
 			]
 		}
 	},
