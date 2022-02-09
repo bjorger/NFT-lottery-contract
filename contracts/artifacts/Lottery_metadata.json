@@ -261,6 +261,13 @@
 			},
 			{
 				"inputs": [],
+				"name": "disableWhitelistMode",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "drawingState",
 				"outputs": [
 					{
@@ -313,6 +320,25 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "entrant",
+						"type": "address"
+					}
+				],
+				"name": "getEntrantStatus",
+				"outputs": [
+					{
+						"internalType": "enum EntrantState",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "getLotteryPot",
 				"outputs": [
@@ -320,6 +346,19 @@
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getLotteryState",
+				"outputs": [
+					{
+						"internalType": "enum LotteryState",
+						"name": "",
+						"type": "uint8"
 					}
 				],
 				"stateMutability": "view",
@@ -553,6 +592,24 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "_addr",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "rarity",
+						"type": "uint256"
+					}
+				],
+				"name": "testFunctionDELETETHIS",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "newOwner",
 						"type": "address"
 					}
@@ -576,6 +633,19 @@
 						"internalType": "string",
 						"name": "",
 						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "winnerCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -758,19 +828,11 @@
 			]
 		},
 		"contracts/Lottery.sol": {
-			"keccak256": "0x85863f062637040ef4941ccc11d3dd9e26a3931aecd1a0bb987aa2e7099a3705",
+			"keccak256": "0x940f86e6b50b9ef6594e6ff06214452261f11bfe506f6fa0a44d6ed0cab5b6a8",
 			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://ddf7b9c3d100b73ea7c843dc781b84f5d01c82d8f3a7a18724c22e5aa30b5102",
-				"dweb:/ipfs/QmSYhiXbdGWYrSTa4zToZCKsL2yVicEUUCPLha6hXZ3HZy"
-			]
-		},
-		"hardhat/console.sol": {
-			"keccak256": "0x72b6a1d297cd3b033d7c2e4a7e7864934bb767db6453623f1c3082c6534547f4",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://a8cb8681076e765c214e0d51cac989325f6b98e315eaae06ee0cbd5a9f084763",
-				"dweb:/ipfs/QmNWGHi4zmjxQTYN3NMGnJd49jBT5dE4bxTdWEaDuJrC6N"
+				"bzz-raw://e812093ec904d13de56561240dce7ae3b7e4e246edb81f709269a9659ffbb156",
+				"dweb:/ipfs/QmdtuiGzB5oBvF8ZVfKvzCAtdHD9ksdoUpFD2yLMkb5WbV"
 			]
 		}
 	},
