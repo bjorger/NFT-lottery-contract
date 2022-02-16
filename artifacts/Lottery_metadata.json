@@ -40,27 +40,14 @@
 				"inputs": [
 					{
 						"indexed": false,
-						"internalType": "uint256",
-						"name": "bracket",
-						"type": "uint256"
-					}
-				],
-				"name": "CategoryBracket",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
 						"internalType": "address",
-						"name": "player",
+						"name": "",
 						"type": "address"
 					},
 					{
 						"indexed": false,
 						"internalType": "uint256",
-						"name": "rarity",
+						"name": "",
 						"type": "uint256"
 					}
 				],
@@ -91,8 +78,27 @@
 				"inputs": [
 					{
 						"indexed": false,
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "PayWinner",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
 						"internalType": "bytes32",
-						"name": "id",
+						"name": "",
 						"type": "bytes32"
 					}
 				],
@@ -255,35 +261,22 @@
 			},
 			{
 				"inputs": [],
-				"name": "buyWithWETH",
+				"name": "disableWhitelistMode",
 				"outputs": [],
-				"stateMutability": "payable",
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
 				"inputs": [],
-				"name": "categoryBracket",
+				"name": "drawingState",
 				"outputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "enum DrawingState",
 						"name": "",
-						"type": "uint256"
+						"type": "uint8"
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "rarity",
-						"type": "uint256"
-					}
-				],
-				"name": "drawWinner",
-				"outputs": [],
-				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -317,6 +310,103 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "_addr",
+						"type": "address"
+					}
+				],
+				"name": "generateTestUsers",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getContractBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "entrant",
+						"type": "address"
+					}
+				],
+				"name": "getEntrantStatus",
+				"outputs": [
+					{
+						"internalType": "enum EntrantState",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getLotteryPot",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getLotteryState",
+				"outputs": [
+					{
+						"internalType": "enum LotteryState",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getTicketPrice",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getWETHBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "account",
 						"type": "address"
 					},
@@ -332,19 +422,6 @@
 						"internalType": "bool",
 						"name": "",
 						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "lotteryPot",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -499,6 +576,13 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "startDrawing",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "bytes4",
@@ -515,6 +599,24 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_addr",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "rarity",
+						"type": "uint256"
+					}
+				],
+				"name": "testFunctionDELETETHIS",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -547,6 +649,26 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "winnerCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "withDraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -622,10 +744,10 @@
 	},
 	"sources": {
 		"Lottery_flat.sol": {
-			"keccak256": "0x669266647410f9efa7e0e821c1b6181125f6b3cfbc0057ab0f8bbbd31213feb9",
+			"keccak256": "0x4fffa9aec8b9c6d06da47bc91f509c14de8873b22540af3f2f6d9656426851a0",
 			"urls": [
-				"bzz-raw://849aac1045a953fd375f0914173caf274c992d1334d08d5be5969198bb0ae14f",
-				"dweb:/ipfs/QmNm3yBi41KYDDjLADsqhCv87s5desbNRrAD3iCXUJNFru"
+				"bzz-raw://afd27f461a8f574ca9c4e2835529d7019c35cb40e9d7ffd304d2d69b3b29c971",
+				"dweb:/ipfs/QmZUMnKKuCrmqt82U6CJPam9d3UcFkENH9ymjU9yMZkKEy"
 			]
 		}
 	},

@@ -260,6 +260,25 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "player",
+						"type": "address"
+					}
+				],
+				"name": "calculateAccumulatedTicketsOfAddress",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "disableWhitelistMode",
 				"outputs": [],
@@ -304,6 +323,19 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_addr",
+						"type": "address"
+					}
+				],
+				"name": "generateTestUsers",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -566,7 +598,7 @@
 				"inputs": [],
 				"name": "startDrawing",
 				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -640,15 +672,9 @@
 			},
 			{
 				"inputs": [],
-				"name": "winnerCount",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
+				"name": "withDraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -724,11 +750,11 @@
 	},
 	"sources": {
 		"@chainlink/contracts/src/v0.8/VRFConsumerBase.sol": {
-			"keccak256": "0x778c9d88cd6d94ae866c1c3f5fec6022f07e39280d3b6d581c8cceb8a5ac4b1e",
+			"keccak256": "0xff9e7d773545a1a5d73106e72bfb429da79c1cc4d893fb62051df801d2e61469",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a2fe7cac98f6c86e4e3ef299bb91f3917d4171548e39da72c7da392c9d5d5815",
-				"dweb:/ipfs/QmT8jh2DR1VU8554hGMbjX6BkACT96FZBETbN5KkStBvYP"
+				"bzz-raw://68ff9557dad6da8108073dadcbfe5cd1f45106c2f890443eacd3bf8d59955d4e",
+				"dweb:/ipfs/QmSKYkP8wNX7MKYrCroFps62gdxEwwrZwsz4RLc6XzNkxi"
 			]
 		},
 		"@chainlink/contracts/src/v0.8/VRFRequestIDBase.sol": {
@@ -828,11 +854,11 @@
 			]
 		},
 		"contracts/Lottery.sol": {
-			"keccak256": "0x940f86e6b50b9ef6594e6ff06214452261f11bfe506f6fa0a44d6ed0cab5b6a8",
+			"keccak256": "0xd2dfff8353e8126a5c420ff15ade1c5e7df33261c5ba264cf9167f4cf0882700",
 			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://e812093ec904d13de56561240dce7ae3b7e4e246edb81f709269a9659ffbb156",
-				"dweb:/ipfs/QmdtuiGzB5oBvF8ZVfKvzCAtdHD9ksdoUpFD2yLMkb5WbV"
+				"bzz-raw://fa1f22ad640f1ed92cf5a49df99b6fd1a968464bccdbf0146c623caf3f8fe483",
+				"dweb:/ipfs/QmdMqbXWSC6b4J3w6ddVNaFys7W3sdeW1nxdCMQHqYwppJ"
 			]
 		}
 	},

@@ -34,10 +34,10 @@
 	},
 	"sources": {
 		"Lottery_flat.sol": {
-			"keccak256": "0x669266647410f9efa7e0e821c1b6181125f6b3cfbc0057ab0f8bbbd31213feb9",
+			"keccak256": "0x4fffa9aec8b9c6d06da47bc91f509c14de8873b22540af3f2f6d9656426851a0",
 			"urls": [
-				"bzz-raw://849aac1045a953fd375f0914173caf274c992d1334d08d5be5969198bb0ae14f",
-				"dweb:/ipfs/QmNm3yBi41KYDDjLADsqhCv87s5desbNRrAD3iCXUJNFru"
+				"bzz-raw://afd27f461a8f574ca9c4e2835529d7019c35cb40e9d7ffd304d2d69b3b29c971",
+				"dweb:/ipfs/QmZUMnKKuCrmqt82U6CJPam9d3UcFkENH9ymjU9yMZkKEy"
 			]
 		}
 	},
